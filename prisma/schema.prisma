@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ms-user tables
+
+model User {
+  id    String  @default(cuid()) @id
+  email String  @unique
+  name  String
+  password String?
+  roleId String?
+  isActive Boolean @default(true)
+  studentId String?
+  role Role? @relation(fields: [roleId], references: [id])
+}
+
+model Role {
+  id String @default(cuid()) @id
+  key String
+  name String
+  isActive Boolean @default(true)
+  users User[]
+}
+
+
+// ms-student tables
+
+model Student {
+  id String  @id @default(cuid())
+  userId String?
+  name String
+  email String @unique
+  dateOfBirth DateTime
+  gender String?
+  height Float?
+  weight Float?
+  isActive Boolean? @default(true)
+}
+
+// ms-workout tables
+
+model Muscle {
+  id String  @id @default(cuid())
+  name String
+  isActive Boolean? @default(true)
+  exercises Exercise[]
+}
+
+model Exercise {
+  id String  @id @default(cuid())
+  name String
+  muscleId String
+  isActive Boolean? @default(true)
+  workoutExercises WorkoutExercise[]
+  workoutHistory WorkoutHistory[]
+  muscle Muscle @relation(fields: [muscleId], references: [id])
+}
+
+model Workout {
+  id String  @id @default(cuid())
+  studentId String
+  name String
+  isActive Boolean? @default(true)
+  order Int @default(0)
+  workoutExercises WorkoutExercise[]
+}
+
+model WorkoutExercise {
+  id String  @id @default(cuid())
+  workoutId String
+  exerciseId String
+  order Int @default(0)
+  exercise Exercise @relation(fields: [exerciseId], references: [id])
+  workout Workout @relation(fields: [workoutId], references: [id])
+}
+
+model WorkoutHistory {
+  id String  @id @default(cuid())
+  studentId String
+  exerciseId String
+  startDate DateTime?
+  endDate DateTime?
+  exercise Exercise @relation(fields: [exerciseId], references: [id])
+}

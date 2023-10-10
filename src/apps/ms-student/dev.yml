@@ -1,0 +1,3 @@
+DATABASE_URL: 'file:./dev.db'
+API_URL_USERS: 'https://us-central1-rising-theater-397919.cloudfunctions.net/ms_users'
+API_URL_WORKOUTS: 'https://us-central1-rising-theater-397919.cloudfunctions.net/ms_workouts'

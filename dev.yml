@@ -1,0 +1,2 @@
+ENV: 'dev'
+SECRET_KEY: 'gym-microservice-serverless'
