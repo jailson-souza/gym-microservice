@@ -1,19 +1,19 @@
-import { MiddlewareConsumer, NestModule } from '@nestjs/common';
+// import { MiddlewareConsumer, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { RoleGuard } from 'src/shared/guards/role.guard';
-import { RequestLoggerMiddleware } from 'src/shared/middlewares/request-logger.middlere';
+// import { RequestLoggerMiddleware } from 'src/shared/middlewares/request-logger.middlere';
 import { Jwt } from '../jwt';
 import { PrismaService } from '../prisma';
 import { Logger } from '../logger';
 import { FindOneUsersUseCase } from 'src/apps/ms-user/modules/users/use-case/find-one-users.use-case';
 
-export abstract class GlobalModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(RequestLoggerMiddleware).forRoutes('*');
-  }
+export abstract class GlobalModule /* implements NestModule*/ {
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer.apply(RequestLoggerMiddleware).forRoutes('*');
+  // }
 
   static imports() {
     return [JwtModule, ConfigModule.forRoot({ isGlobal: true })];

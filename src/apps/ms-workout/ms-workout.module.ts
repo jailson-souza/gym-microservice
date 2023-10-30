@@ -7,13 +7,12 @@ import { GlobalModule } from 'src/shared/utils/tools/global.module';
 
 @Module({
   imports: [
-    ...GlobalModule.imports(),
     MusclesModule,
     ExercisesModule,
     WorkoutsModule,
     WorkoutHistoryModule,
   ],
-  providers: [...GlobalModule.providers()],
+  providers: [],
 })
 export default class MsWorkoutModule extends GlobalModule {
   static PORT = 3002;

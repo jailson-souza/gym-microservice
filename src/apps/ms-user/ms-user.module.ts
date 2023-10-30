@@ -5,8 +5,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { GlobalModule } from 'src/shared/utils/tools/global.module';
 
 @Module({
-  imports: [...GlobalModule.imports(), UsersModule, AuthModule, RolesModule],
-  providers: [...GlobalModule.providers()],
+  imports: [UsersModule, AuthModule, RolesModule],
+  providers: [],
 })
 export default class MsUserModule extends GlobalModule {
   static PORT = 3000;
