@@ -1,7 +1,7 @@
 {
   "role": ["admin", "teacher"],
   "method": ["post", "patch", "put", "delete", "get"],
-  "resource": ["user", "student", "workout"],
+  "resource": ["user", "student", "training-plan"],
   "claim": [
     {
       "key": "create",

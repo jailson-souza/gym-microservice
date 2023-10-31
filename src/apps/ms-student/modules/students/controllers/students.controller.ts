@@ -15,7 +15,6 @@ import { FindAllStudentsUseCase } from '../use-case/find-all-students.use-case';
 import { CheckRole } from 'src/shared/decorators/checkRole.decorator';
 import { RoleEnum } from 'src/shared/models/enums/Role.enum';
 import { UpdateStudentsUseCase } from '../use-case/update-students.use-case';
-import { StudentFacade } from '../facades/student.facade';
 import { FindOneStudentsUseCase } from '../use-case/find-one-students.use-case';
 import { InactivateStudentsUseCase } from '../use-case/inactivate-students.use-case';
 
@@ -28,7 +27,6 @@ export class StudentsController {
     private readonly updateStudentsUseCase: UpdateStudentsUseCase,
     private readonly activateStudentsUseCase: ActivateStudentsUseCase,
     private readonly inactivateStudentsUseCase: InactivateStudentsUseCase,
-    private readonly studentFacade: StudentFacade,
   ) {}
 
   @Post()

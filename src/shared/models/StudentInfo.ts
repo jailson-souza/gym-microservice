@@ -1,8 +1,8 @@
 import { Student } from './Student';
 import { User } from './User';
-import { Workout } from './Workout';
+import { TrainingPlan } from './TrainingPlan';
 
 export type StudentInfo = Student & {
   user: User;
-  workouts: Workout[];
+  trainingPlan: TrainingPlan[];
 };

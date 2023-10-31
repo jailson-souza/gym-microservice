@@ -7,10 +7,7 @@ import { FindAllStudentsUseCase } from './use-case/find-all-students.use-case';
 import { UpdateStudentsUseCase } from './use-case/update-students.use-case';
 import { FindByUserIdStudentsUseCase } from './use-case/find-by-user-id-students.use-case';
 import { FindByEmailStudentsUseCase } from './use-case/find-by-email-students.use-case';
-import { StudentFacade } from './facades/student.facade';
 import { MeStudentsController } from './controllers/me-students.controller';
-import { WorkoutExternalService } from '../../external-services/workout/workout.external-service';
-import { UserExternalService } from '../../external-services/users/user.external-service';
 import { FindOneStudentsUseCase } from './use-case/find-one-students.use-case';
 import { InactivateStudentsUseCase } from './use-case/inactivate-students.use-case';
 
@@ -26,9 +23,6 @@ import { InactivateStudentsUseCase } from './use-case/inactivate-students.use-ca
     FindOneStudentsUseCase,
     InactivateStudentsUseCase,
     UpdateStudentsUseCase,
-    StudentFacade,
-    WorkoutExternalService,
-    UserExternalService,
   ],
 })
 export class StudentsModule {}
