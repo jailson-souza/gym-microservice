@@ -13,6 +13,6 @@ import MsTrainingPlanModule from './ms-treining-plan/ms-treining-plan.module';
   ],
   providers: [...GlobalModule.providers()],
 })
-export default class AppsModule extends GlobalModule {
+export class AppsModule extends GlobalModule {
   static PORT = 3000;
 }
