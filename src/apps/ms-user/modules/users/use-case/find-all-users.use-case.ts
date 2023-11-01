@@ -7,6 +7,6 @@ export class FindAllUsersUseCase {
   constructor(private readonly prisma: PrismaService) {}
 
   execute(): Promise<User[]> {
-    return this.prisma.user.findMany() as Promise<User[]>;
+    return this.prisma.user.findMany() as Promise<any[]>;
   }
 }

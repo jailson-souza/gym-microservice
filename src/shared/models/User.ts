@@ -1,11 +1,10 @@
-import { Role } from './Role';
+import { UserRole } from './UserRole';
 
 export type User = {
-  id?: string;
+  id: string;
   name: string;
   email: string;
   password?: string;
   isActive: boolean;
-  studentId?: string;
-  role?: Partial<Role>;
+  userRoles: UserRole[];
 };

@@ -4,10 +4,15 @@ import {
   IsOptional,
   IsNumber,
   IsDateString,
+  IsEnum,
 } from 'class-validator';
 import { IsDateFormat } from 'src/shared/decorators/IsDateFormat.decorator';
+import { GenderEnum } from 'src/shared/models/enums/Gender.enum';
 
 export class CreateStudentDto {
+  @IsOptional()
+  userId?: string;
+
   @IsNotEmpty()
   name: string;
 
@@ -20,13 +25,14 @@ export class CreateStudentDto {
 
   @IsOptional()
   @IsNotEmpty()
-  gender?: string;
+  @IsEnum(GenderEnum)
+  gender: GenderEnum;
 
   @IsOptional()
   @IsNumber()
-  height?: number;
+  heightInMt?: number;
 
   @IsOptional()
   @IsNumber()
-  weight?: number;
+  weightInKg?: number;
 }

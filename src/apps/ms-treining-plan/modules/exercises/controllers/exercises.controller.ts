@@ -30,7 +30,7 @@ export class ExercisesController {
   ) {}
 
   @Post()
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   create(@Body() createExerciseDto: CreateExerciseDto) {
     return this.createExercisesUseCase.execute(createExerciseDto);
   }
@@ -48,7 +48,7 @@ export class ExercisesController {
   }
 
   @Patch(':id')
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   update(
     @Param('id') id: string,
     @Body() updateExerciseDto: UpdateExerciseDto,
@@ -57,13 +57,13 @@ export class ExercisesController {
   }
 
   @Delete(':id')
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   inactivate(@Param('id') id: string) {
     return this.inactivateExercisesUseCase.execute(id);
   }
 
   @Patch(':id/activate')
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   activate(@Param('id') id: string) {
     return this.activateExercisesUseCase.execute(id);
   }

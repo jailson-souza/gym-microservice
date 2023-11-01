@@ -30,37 +30,37 @@ export class StudentsController {
   ) {}
 
   @Post()
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   create(@Body() createStudentDto: CreateStudentDto) {
     return this.createStudentsUseCase.execute(createStudentDto);
   }
 
   @Get()
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   findAll() {
     return this.findAllStudentsUseCase.execute();
   }
 
   @Get(':id')
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   findOne(@Param('id') id: string) {
     return this.findOneStudentsUseCase.execute(id);
   }
 
   @Patch(':id')
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   update(@Param('id') id: string, @Body() updateStudentDto: UpdateStudentDto) {
     return this.updateStudentsUseCase.execute(id, updateStudentDto);
   }
 
   @Delete(':id')
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   inactivate(@Param('id') id: string) {
     return this.inactivateStudentsUseCase.execute(id);
   }
 
   @Patch(':id/activate')
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   activate(@Param('id') id: string) {
     return this.activateStudentsUseCase.execute(id);
   }

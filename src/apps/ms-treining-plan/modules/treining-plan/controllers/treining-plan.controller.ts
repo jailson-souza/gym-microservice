@@ -30,25 +30,25 @@ export class TrainingPlansController {
   ) {}
 
   @Post()
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   create(@Body() createTrainingPlanDto: CreateTrainingPlanDto) {
     return this.createTrainingPlansUseCase.execute(createTrainingPlanDto);
   }
 
   @Get()
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   findAll() {
     return this.findAllTrainingPlansUseCase.execute();
   }
 
   @Get(':id')
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   findOne(@Param('id') id: string) {
     return this.findOneTrainingPlansUseCase.execute(id);
   }
 
   @Patch(':id')
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   update(
     @Param('id') id: string,
     @Body() updateTrainingPlanDto: UpdateTrainingPlanDto,
@@ -57,13 +57,13 @@ export class TrainingPlansController {
   }
 
   @Delete(':id')
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   inactivate(@Param('id') id: string) {
     return this.inactivateTrainingPlansUseCase.execute(id);
   }
 
   @Patch(':id/activate')
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   activate(@Param('id') id: string) {
     return this.activateTrainingPlansUseCase.execute(id);
   }

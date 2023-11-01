@@ -10,18 +10,15 @@ export class FindOneUsersUseCase {
     const user = await this.prisma.user.findUnique({
       where: { id },
       select: {
+        password: false,
         id: true,
-        email: true,
-        password: true,
-        isActive: true,
         name: true,
-        roleId: true,
-        studentId: true,
-        role: true,
+        email: true,
+        isActive: true,
+        createdAt: true,
+        userRoles: true,
       },
     });
-
-    delete user.password;
     return user as User;
   }
 }

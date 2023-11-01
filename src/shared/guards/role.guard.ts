@@ -8,6 +8,7 @@ import { Reflector } from '@nestjs/core';
 import { allowedRolesKey } from '../decorators/checkRole.decorator';
 import { RoleEnum } from 'src/shared/models/enums/Role.enum';
 import { isPublicKey } from '../decorators/isPublic.decorator';
+import { UserRole } from '../models/UserRole';
 
 @Injectable()
 export class RoleGuard implements CanActivate {
@@ -40,12 +41,16 @@ export class RoleGuard implements CanActivate {
 
     const { user } = context.switchToHttp().getRequest();
 
-    if (!allowedRoles.includes(user.role)) {
-      throw new ForbiddenException(
-        'you dont have permission to access this resource',
-      );
+    const roles: RoleEnum[] = user?.userRoles?.map(
+      (userRole: UserRole) => userRole.role,
+    );
+
+    if (roles.some((role) => allowedRoles.includes(role))) {
+      return true;
     }
 
-    return true;
+    throw new ForbiddenException(
+      'you dont have permission to access this resource',
+    );
   }
 }

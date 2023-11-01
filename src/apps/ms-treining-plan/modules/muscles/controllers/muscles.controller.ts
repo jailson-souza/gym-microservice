@@ -30,7 +30,7 @@ export class MusclesController {
   ) {}
 
   @Post()
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   create(@Body() createMuscleDto: CreateMuscleDto) {
     return this.createMusclesUseCase.execute(createMuscleDto);
   }
@@ -48,19 +48,19 @@ export class MusclesController {
   }
 
   @Patch(':id')
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   update(@Param('id') id: string, @Body() updateMuscleDto: UpdateMuscleDto) {
     return this.updateMusclesUseCase.execute(id, updateMuscleDto);
   }
 
   @Delete(':id')
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   inactivate(@Param('id') id: string) {
     return this.inactivateMusclesUseCase.execute(id);
   }
 
   @Patch(':id/activate')
-  @CheckRole(RoleEnum.Teacher)
+  @CheckRole(RoleEnum.TEACHER)
   activate(@Param('id') id: string) {
     return this.activateMusclesUseCase.execute(id);
   }

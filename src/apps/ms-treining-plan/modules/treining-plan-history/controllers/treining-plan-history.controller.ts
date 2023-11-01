@@ -14,7 +14,7 @@ export class TrainingPlanHistoryController {
   ) {}
 
   @Get()
-  @CheckRole(RoleEnum.Admin)
+  @CheckRole(RoleEnum.ADMIN)
   findAll() {
     return this.findAllTrainingPlanHistoryUseCase.execute();
   }
@@ -28,7 +28,7 @@ export class TrainingPlanHistoryController {
   }
 
   @Get(':id')
-  @CheckRole(RoleEnum.Admin)
+  @CheckRole(RoleEnum.ADMIN)
   findOne(@Param('id') id: string) {
     return this.findOneTrainingPlanHistoryUseCase.execute(id);
   }

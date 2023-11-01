@@ -42,16 +42,8 @@ export class AuthGuard implements CanActivate {
     if (error) {
       this.throwExceptionFromMessage(error);
     }
-
     const user = await this.findOneUsersUseCase.execute(payload.sub);
-
-    request['user'] = {
-      id: user.id,
-      role: user?.role?.key,
-      studentId: user.studentId,
-      token,
-    };
-
+    request.user = user;
     return true;
   }
 

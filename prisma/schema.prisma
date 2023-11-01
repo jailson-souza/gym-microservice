@@ -6,8 +6,20 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  name          String
+  password      String?
+  isActive      Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  userRoles     UserRole[]
+  trainingPlans TrainingPlan[]
+  students      Student[]
 }
 
 enum Role {
@@ -16,24 +28,12 @@ enum Role {
   STUDENT
 }
 
-model User {
-  id           String         @id @default(cuid())
-  email        String         @unique
-  name         String
-  password     String?
-  isActive     Boolean        @default(true)
-  userRoles    UserRole[]
-  createdAt    DateTime       @default(now())
-  treiningPlan TrainingPlan[]
-}
-
 model UserRole {
   id        String   @id @default(cuid())
   userId    String
   role      Role
-  isActive  Boolean  @default(true)
-  user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 enum Gender {
@@ -44,6 +44,7 @@ enum Gender {
 
 model Student {
   id                     String                   @id @default(cuid())
+  userId                 String?
   name                   String
   email                  String                   @unique
   dateOfBirth            DateTime
@@ -54,6 +55,8 @@ model Student {
   createdAt              DateTime                 @default(now())
   StudentExercise        StudentExercise[]
   StudentExerciseHistory StudentExerciseHistory[]
+  TrainingPlan           TrainingPlan[]
+  User                   User?                    @relation(fields: [userId], references: [id])
 }
 
 model Muscle {
@@ -74,27 +77,32 @@ model Exercise {
   muscle                 Muscle                   @relation(fields: [muscleId], references: [id])
   StudentExercise        StudentExercise[]
   StudentExerciseHistory StudentExerciseHistory[]
+  TrainingPlanExercise   TrainingPlanExercise[]
 }
 
 model TrainingPlan {
-  id                  String                @id @default(cuid())
-  studentId           String
-  name                String
-  isActive            Boolean?              @default(true)
-  order               Int                   @default(0)
-  createdByUserId     String
-  createdAt           DateTime              @default(now())
-  user                User                  @relation(fields: [createdByUserId], references: [id])
-  trainingPlanHistory TrainingPlanHistory[]
+  id                   String                 @id @default(cuid())
+  studentId            String
+  name                 String
+  isActive             Boolean?               @default(true)
+  order                Int                    @default(0)
+  createdByUserId      String
+  createdAt            DateTime               @default(now())
+  trainingPlanHistory  TrainingPlanHistory[]
+  user                 User                   @relation(fields: [createdByUserId], references: [id])
+  student              Student                @relation(fields: [studentId], references: [id])
+  TrainingPlanExercise TrainingPlanExercise[]
 }
 
 model TrainingPlanExercise {
-  id                String   @id @default(cuid())
+  id                String       @id @default(cuid())
   treiningPlanId    String
   exerciseId        String
   intervalInSeconds Int?
-  order             Int      @default(0)
-  createdAt         DateTime @default(now())
+  order             Int          @default(0)
+  createdAt         DateTime     @default(now())
+  trainingPlan      TrainingPlan @relation(fields: [treiningPlanId], references: [id])
+  exercise          Exercise     @relation(fields: [exerciseId], references: [id])
 }
 
 model StudentExercise {

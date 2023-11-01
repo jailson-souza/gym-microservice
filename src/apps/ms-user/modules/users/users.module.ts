@@ -8,6 +8,8 @@ import { CreateUsersUseCase } from './use-case/create-users.use-case';
 import { FindAllUsersUseCase } from './use-case/find-all-users.use-case';
 import { FindOneUsersUseCase } from './use-case/find-one-users.use-case';
 import { InactivateUsersUseCase } from './use-case/inactivate-users.use-case';
+import { AddRoleToUserUseCase } from './use-case/add-role-to-user.use-case';
+import { DeleteRoleFromUserUseCase } from './use-case/delete-role-from-user.use-case';
 
 @Module({
   controllers: [UsersController, MeUsersController],
@@ -19,6 +21,8 @@ import { InactivateUsersUseCase } from './use-case/inactivate-users.use-case';
     FindOneUsersUseCase,
     InactivateUsersUseCase,
     UpdateUsersUseCase,
+    AddRoleToUserUseCase,
+    DeleteRoleFromUserUseCase,
   ],
 })
 export class UsersModule {}

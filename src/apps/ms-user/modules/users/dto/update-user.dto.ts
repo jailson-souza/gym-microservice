@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsEmail, IsEnum, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsEmail, IsOptional, IsEnum } from 'class-validator';
 import { RoleEnum } from 'src/shared/models/enums/Role.enum';
 
 export class UpdateUserDto {
@@ -15,6 +15,6 @@ export class UpdateUserDto {
   password?: string;
 
   @IsOptional()
-  @IsEnum(RoleEnum)
-  role?: RoleEnum;
+  @IsEnum(RoleEnum, { each: true })
+  roles?: RoleEnum[];
 }

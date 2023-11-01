@@ -13,6 +13,6 @@ export class CreateUserDto {
   @IsNotEmpty()
   password?: string;
 
-  @IsEnum(RoleEnum)
-  role: RoleEnum;
+  @IsEnum(RoleEnum, { each: true })
+  roles: RoleEnum[];
 }
