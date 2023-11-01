@@ -53,10 +53,10 @@ model Student {
   weightInKg             Float?
   isActive               Boolean?                 @default(true)
   createdAt              DateTime                 @default(now())
-  StudentExercise        StudentExercise[]
-  StudentExerciseHistory StudentExerciseHistory[]
-  TrainingPlan           TrainingPlan[]
-  User                   User?                    @relation(fields: [userId], references: [id])
+  studentExercise        StudentExercise[]
+  studentExerciseHistory StudentExerciseHistory[]
+  trainingPlan           TrainingPlan[]
+  user                   User?                    @relation(fields: [userId], references: [id])
 }
 
 model Muscle {
@@ -72,12 +72,13 @@ model Exercise {
   name                   String
   muscleId               String
   description            String?                  @db.VarChar(1000)
+  sourceImages           String?
   isActive               Boolean                  @default(true)
   createdAt              DateTime                 @default(now())
   muscle                 Muscle                   @relation(fields: [muscleId], references: [id])
-  StudentExercise        StudentExercise[]
-  StudentExerciseHistory StudentExerciseHistory[]
-  TrainingPlanExercise   TrainingPlanExercise[]
+  studentExercise        StudentExercise[]
+  studentExerciseHistory StudentExerciseHistory[]
+  trainingPlanExercise   TrainingPlanExercise[]
 }
 
 model TrainingPlan {
@@ -91,7 +92,7 @@ model TrainingPlan {
   trainingPlanHistory  TrainingPlanHistory[]
   user                 User                   @relation(fields: [createdByUserId], references: [id])
   student              Student                @relation(fields: [studentId], references: [id])
-  TrainingPlanExercise TrainingPlanExercise[]
+  trainingPlanExercise TrainingPlanExercise[]
 }
 
 model TrainingPlanExercise {
