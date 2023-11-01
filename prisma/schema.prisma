@@ -72,7 +72,7 @@ model Exercise {
   name                   String
   muscleId               String
   description            String?                  @db.VarChar(1000)
-  sourceImages           String?
+  image                  String?
   isActive               Boolean                  @default(true)
   createdAt              DateTime                 @default(now())
   muscle                 Muscle                   @relation(fields: [muscleId], references: [id])
