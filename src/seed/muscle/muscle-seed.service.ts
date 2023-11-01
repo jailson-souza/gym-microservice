@@ -5,7 +5,6 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class MuscleSeedService {
   constructor(private readonly prisma: PrismaService) {}
-
   async run() {
     const muscles = await this.prisma.muscle.findMany({
       where: { id: { in: data.map(({ id }) => id) } },
