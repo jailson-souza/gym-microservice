@@ -150,25 +150,25 @@
     "name": "Dorsais",
     "exercises": [
       {
-        "clofv5s9m0008r1vk4c6gfknb": "clofv5s9m0008r1vk4c6gfknb",
+        "muscleId": "clofv5s9m0008r1vk4c6gfknb",
         "id": "clog49nye000808jg75cnhtph",
         "name": "Remada curvada com barra e pegada pronada",
         "image": "costas-remada-curvada-barra.png"
       },
       {
-        "clofv5s9m0008r1vk4c6gfknb": "clofv5s9m0008r1vk4c6gfknb",
+        "muscleId": "clofv5s9m0008r1vk4c6gfknb",
         "id": "clog4a1ay000908jg2b8th6p3",
         "name": "Remada unilateral com halter (remada serrote)",
         "image": "costas-remada-unilateral-com-halter-serrote-no-banco.png"
       },
       {
-        "clofv5s9m0008r1vk4c6gfknb": "clofv5s9m0008r1vk4c6gfknb",
+        "muscleId": "clofv5s9m0008r1vk4c6gfknb",
         "id": "clog4a6m6000a08jg7lk6guwa",
         "name": "Puxada com barra no pulley",
         "image": "costas-puxada-aberta-com-barra-no-pulley-1.png"
       },
       {
-        "clofv5s9m0008r1vk4c6gfknb": "clofv5s9m0008r1vk4c6gfknb",
+        "muscleId": "clofv5s9m0008r1vk4c6gfknb",
         "id": "clog4abv7000b08jg4chphw1a",
         "name": "Remada na máquina de cabos",
         "image": "remada-sentado-com-cabos-e-triangulo-para-costas.png"

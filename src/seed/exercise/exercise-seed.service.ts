@@ -10,7 +10,6 @@ export class ExerciseSeedService {
     const exercisesMappeds = data.reduce((acc, { exercises }) => {
       return exercises?.length > 0 ? [...acc, ...exercises] : [...acc];
     }, []);
-    console.log('exercisesMappeds', exercisesMappeds);
     const exercises = await this.prisma.exercise.findMany({
       where: { id: { in: exercisesMappeds.map(({ id }) => id) } },
       select: { id: true, name: true },
