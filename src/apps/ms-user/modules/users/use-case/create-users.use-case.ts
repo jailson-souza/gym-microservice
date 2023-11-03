@@ -1,7 +1,7 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { User } from 'src/shared/models/User';
-import { PrismaService } from 'src/shared/utils/prisma';
-import { encryptPassword } from 'src/shared/utils/libs/encryptor.lib';
+import { User } from '../../../../../shared/models/User';
+import { PrismaService } from '../../../../../shared/utils/prisma';
+import { encryptPassword } from '../../../../../shared/utils/libs/encryptor.lib';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { AddRoleToUserUseCase } from './add-role-to-user.use-case';
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/shared/utils/prisma';
-import { RoleEnum } from 'src/shared/models/enums/Role.enum';
+import { PrismaService } from '../../../../../shared/utils/prisma';
+import { RoleEnum } from '../../../../../shared/models/enums/Role.enum';
 
 type TInputAddRoleToUser = {
   userId: string;
