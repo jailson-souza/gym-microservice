@@ -101,6 +101,7 @@ model TrainingPlanExercise {
   exerciseId        String
   intervalInSeconds Int?
   order             Int          @default(0)
+  isActive          Boolean?     @default(true)
   createdAt         DateTime     @default(now())
   trainingPlan      TrainingPlan @relation(fields: [treiningPlanId], references: [id])
   exercise          Exercise     @relation(fields: [exerciseId], references: [id])

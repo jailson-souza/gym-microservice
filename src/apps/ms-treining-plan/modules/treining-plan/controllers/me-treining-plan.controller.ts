@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Param, Req } from '@nestjs/common';
 import { CheckRole } from 'src/shared/decorators/checkRole.decorator';
-import { FindByStudentTrainingPlanUseCase } from '../use-case/find-by-student-workout.use-case';
+import { FindByStudentTrainingPlanByUserIdUseCase } from '../use-case/find-by-student-training-plan-by-user-id';
 import { FindOneTrainingPlansUseCase } from '../use-case/find-one-treining-plan.use-case';
 import { FinishExerciseTrainingPlansUseCase } from '../use-case/finish-exercise-treining-plan.use-case';
 import { StartExerciseTrainingPlansUseCase } from '../use-case/start-exercise-treining-plan.use-case';
@@ -11,13 +11,13 @@ export class MeTrainingPlansController {
     private readonly findOneTrainingPlansUseCase: FindOneTrainingPlansUseCase,
     private readonly finishExerciseTrainingPlansUseCase: FinishExerciseTrainingPlansUseCase,
     private readonly startExerciseTrainingPlansUseCase: StartExerciseTrainingPlansUseCase,
-    private readonly findByStudentTrainingPlanUseCase: FindByStudentTrainingPlanUseCase,
+    private readonly findByStudentTrainingByUserIdPlanUseCase: FindByStudentTrainingPlanByUserIdUseCase,
   ) {}
 
   @Get()
   @CheckRole()
   findMeAll(@Req() req) {
-    return this.findByStudentTrainingPlanUseCase.execute(req.user.studentId);
+    return this.findByStudentTrainingByUserIdPlanUseCase.execute(req.user.id);
   }
 
   @Get(':id')

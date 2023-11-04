@@ -1,40 +1,46 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/shared/utils/prisma';
-import { TrainingPlan } from 'src/shared/models/TrainingPlan';
 import { CreateTrainingPlanDto } from '../dto/create-treining-plan.dto';
+import { TrainingPlan, TrainingPlanExercise } from '@prisma/client';
+
+export type TInputCreateTraining = CreateTrainingPlanDto & {
+  createdByUserId: string;
+};
 
 @Injectable()
 export class CreateTrainingPlansUseCase {
   constructor(private readonly prisma: PrismaService) {}
 
-  async execute(input: CreateTrainingPlanDto): Promise<TrainingPlan> {
-    input;
-    return;
-    //   const { exercises, ...training-plan } = input;
+  async execute(input: TInputCreateTraining): Promise<TrainingPlan> {
+    const { exercises, ...trainingPlan } = input;
+    await this.verifyExistingTrainingPlan(input.name);
+    const trainingPlanCreated = await this.prisma.trainingPlan.create({
+      data: trainingPlan as TrainingPlan,
+    });
 
-    //   await this.verifyExistingTrainingPlan(input.name);
-    //   const training-planCreated = await this.prisma.training-plan.create({ data: training-plan });
+    const trainingPlanExercises = exercises.map(
+      ({ id, intervalInSeconds, order }) => ({
+        order,
+        intervalInSeconds,
+        exerciseId: id,
+        treiningPlanId: trainingPlanCreated.id,
+      }),
+    );
 
-    //   const training-planExercises = exercises.map((exerciseId, index) => ({
-    //     training-planId: training-planCreated.id,
-    //     exerciseId,
-    //     order: index + 1,
-    //   }));
+    await this.prisma.trainingPlanExercise.createMany({
+      data: trainingPlanExercises as TrainingPlanExercise[],
+    });
 
-    //   for await (const item of training-planExercises) {
-    //     await this.prisma.training-planExercise.create({ data: item });
-    //   }
+    return trainingPlanCreated as TrainingPlan;
+  }
 
-    //   return training-planCreated as TrainingPlan;
-    // }
-
-    // private async verifyExistingTrainingPlan(name: string) {
-    //   const training-plan = await this.prisma.training-plan.findFirst({
-    //     where: { name, isActive: true },
-    //     select: { id: true, name: true },
-    //   });
-    //   if (training-plan) {
-    //     throw new ConflictException('training-plan is already exist');
-    //   }
+  private async verifyExistingTrainingPlan(name: string) {
+    const trainingPlan = await this.prisma.trainingPlan.findFirst({
+      where: { name, isActive: true },
+      select: { id: true, name: true },
+    });
+    if (trainingPlan) {
+      throw new ConflictException('training-plan is already exist');
+    }
   }
 }

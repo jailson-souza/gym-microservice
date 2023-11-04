@@ -5,7 +5,7 @@ import { TrainingPlansController } from './controllers/treining-plan.controller'
 import { ActivateTrainingPlansUseCase } from './use-case/activate-treining-plan.use-case';
 import { CreateTrainingPlansUseCase } from './use-case/create-treining-plan.use-case';
 import { FindAllTrainingPlansUseCase } from './use-case/find-all-treining-plan.use-case';
-import { FindByStudentTrainingPlanUseCase } from './use-case/find-by-student-workout.use-case';
+import { FindByStudentTrainingPlanByUserIdUseCase } from './use-case/find-by-student-training-plan-by-user-id';
 import { FindOneTrainingPlansUseCase } from './use-case/find-one-treining-plan.use-case';
 import { FinishExerciseTrainingPlansUseCase } from './use-case/finish-exercise-treining-plan.use-case';
 import { InactivateTrainingPlansUseCase } from './use-case/inactivate-treining-plan.use-case';
@@ -24,7 +24,7 @@ import { UpdateTrainingPlansUseCase } from './use-case/update-treining-plan.use-
     ActivateTrainingPlansUseCase,
     FinishExerciseTrainingPlansUseCase,
     StartExerciseTrainingPlansUseCase,
-    FindByStudentTrainingPlanUseCase,
+    FindByStudentTrainingPlanByUserIdUseCase,
   ],
 })
 export class TrainingPlansModule {}

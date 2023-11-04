@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Req,
 } from '@nestjs/common';
 import { CheckRole } from 'src/shared/decorators/checkRole.decorator';
 import { RoleEnum } from 'src/shared/models/enums/Role.enum';
@@ -31,8 +32,11 @@ export class TrainingPlansController {
 
   @Post()
   @CheckRole(RoleEnum.TEACHER)
-  create(@Body() createTrainingPlanDto: CreateTrainingPlanDto) {
-    return this.createTrainingPlansUseCase.execute(createTrainingPlanDto);
+  create(@Req() req, @Body() createTrainingPlanDto: CreateTrainingPlanDto) {
+    return this.createTrainingPlansUseCase.execute({
+      ...createTrainingPlanDto,
+      createdByUserId: req.user.id,
+    });
   }
 
   @Get()
