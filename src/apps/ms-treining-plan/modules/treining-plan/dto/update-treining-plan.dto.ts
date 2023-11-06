@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class UpdateTrainingPlanDto {
   @IsOptional()
@@ -6,7 +6,5 @@ export class UpdateTrainingPlanDto {
   name?: string;
 
   @IsOptional()
-  @IsNotEmpty()
-  @IsNumber()
-  order: number;
+  objective?: string;
 }

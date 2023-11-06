@@ -1,7 +1,6 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/shared/utils/prisma';
 import { CreateTrainingPlanDto } from '../dto/create-treining-plan.dto';
-import { TrainingPlan, TrainingPlanExercise } from '@prisma/client';
 
 export type TInputCreateTraining = CreateTrainingPlanDto & {
   createdByUserId: string;
@@ -11,27 +10,25 @@ export type TInputCreateTraining = CreateTrainingPlanDto & {
 export class CreateTrainingPlansUseCase {
   constructor(private readonly prisma: PrismaService) {}
 
-  async execute(input: TInputCreateTraining): Promise<TrainingPlan> {
-    const { exercises, ...trainingPlan } = input;
-    await this.verifyExistingTrainingPlan(input.name);
-    const trainingPlanCreated = await this.prisma.trainingPlan.create({
-      data: trainingPlan as TrainingPlan,
-    });
-
-    const trainingPlanExercises = exercises.map(
-      ({ id, intervalInSeconds, order }) => ({
-        order,
-        intervalInSeconds,
-        exerciseId: id,
-        treiningPlanId: trainingPlanCreated.id,
-      }),
-    );
-
-    await this.prisma.trainingPlanExercise.createMany({
-      data: trainingPlanExercises as TrainingPlanExercise[],
-    });
-
-    return trainingPlanCreated as TrainingPlan;
+  async execute(input: TInputCreateTraining) {
+    input;
+    // const { exercises, ...trainingPlan } = input;
+    // await this.verifyExistingTrainingPlan(input.name);
+    // const trainingPlanCreated = await this.prisma.trainingPlan.create({
+    //   data: trainingPlan,
+    // });
+    // const trainingPlanExercises = exercises.map(
+    //   ({ id, intervalInSeconds, order }) => ({
+    //     order,
+    //     intervalInSeconds,
+    //     exerciseId: id,
+    //     treiningPlanId: trainingPlanCreated.id,
+    //   }),
+    // );
+    // await this.prisma.trainingExercise.createMany({
+    //   data: trainingPlanExercises,
+    // });
+    // return trainingPlanCreated as TrainingPlan;
   }
 
   private async verifyExistingTrainingPlan(name: string) {

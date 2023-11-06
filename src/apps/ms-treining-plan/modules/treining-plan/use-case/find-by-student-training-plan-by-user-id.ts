@@ -1,19 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { TrainingPlan } from '@prisma/client';
-
 import { PrismaService } from 'src/shared/utils/prisma';
 
 @Injectable()
 export class FindByStudentTrainingPlanByUserIdUseCase {
   constructor(private readonly prisma: PrismaService) {}
 
-  execute(userId: string): Promise<TrainingPlan[]> {
+  execute(userId: string) {
     return this.prisma.trainingPlan.findMany({
       select: {
         id: true,
         studentId: true,
         name: true,
-        order: true,
+        objective: true,
         createdByUserId: true,
         isActive: true,
         createdAt: true,
@@ -29,19 +27,34 @@ export class FindByStudentTrainingPlanByUserIdUseCase {
             },
           },
         },
-        trainingPlanExercise: {
-          where: {
-            isActive: true,
-          },
+        trainings: {
           select: {
             id: true,
+            name: true,
             order: true,
-            intervalInSeconds: true,
             isActive: true,
-            exercise: {
+            createdAt: true,
+            trainingExercises: {
               select: {
                 id: true,
-                name: true,
+                order: true,
+                intervalInSeconds: true,
+                isActive: true,
+                exercise: {
+                  select: {
+                    id: true,
+                    name: true,
+                    image: true,
+                    description: true,
+                    muscleId: true,
+                    muscle: {
+                      select: {
+                        id: true,
+                        name: true,
+                      },
+                    },
+                  },
+                },
               },
             },
           },

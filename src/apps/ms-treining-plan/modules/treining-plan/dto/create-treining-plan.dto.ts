@@ -1,8 +1,8 @@
-import { IsArray, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 
-export class TrainingPlanExerciseDto {
+export class TrainingExerciseDto {
   @IsNotEmpty()
-  id: string;
+  exerciseId: string;
 
   @IsNotEmpty()
   intervalInSeconds: number;
@@ -12,12 +12,9 @@ export class TrainingPlanExerciseDto {
   order: number;
 }
 
-export class CreateTrainingPlanDto {
+export class Training {
   @IsNotEmpty()
   name: string;
-
-  @IsNotEmpty()
-  studentId: string;
 
   @IsNotEmpty()
   @IsNumber()
@@ -25,5 +22,20 @@ export class CreateTrainingPlanDto {
 
   @IsNotEmpty()
   @IsArray()
-  exercises: TrainingPlanExerciseDto[];
+  exercises: TrainingExerciseDto[];
+}
+
+export class CreateTrainingPlanDto {
+  @IsNotEmpty()
+  name: string;
+
+  @IsNotEmpty()
+  studentId: string;
+
+  @IsOptional()
+  objective?: string;
+
+  @IsNotEmpty()
+  @IsArray()
+  trainings: Training[];
 }

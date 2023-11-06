@@ -22,7 +22,7 @@ export class MeStudentsController {
   @CheckRole(RoleEnum.STUDENT)
   updateMe(@Req() req, @Body() updateStudentDto: UpdateStudentDto) {
     return this.updateStudentsUseCase.execute(
-      req.user.studentId,
+      req.user.student.id,
       updateStudentDto,
     );
   }

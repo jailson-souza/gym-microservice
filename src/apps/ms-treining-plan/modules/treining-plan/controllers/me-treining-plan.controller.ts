@@ -11,13 +11,13 @@ export class MeTrainingPlansController {
     private readonly findOneTrainingPlansUseCase: FindOneTrainingPlansUseCase,
     private readonly finishExerciseTrainingPlansUseCase: FinishExerciseTrainingPlansUseCase,
     private readonly startExerciseTrainingPlansUseCase: StartExerciseTrainingPlansUseCase,
-    private readonly findByStudentTrainingByUserIdPlanUseCase: FindByStudentTrainingPlanByUserIdUseCase,
+    private readonly findByStudentTrainingPlanByUserIdUseCase: FindByStudentTrainingPlanByUserIdUseCase,
   ) {}
 
   @Get()
   @CheckRole()
   findMeAll(@Req() req) {
-    return this.findByStudentTrainingByUserIdPlanUseCase.execute(req.user.id);
+    return this.findByStudentTrainingPlanByUserIdUseCase.execute(req.user.id);
   }
 
   @Get(':id')

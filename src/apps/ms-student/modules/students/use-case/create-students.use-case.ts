@@ -1,6 +1,5 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateStudentDto } from '../dto/create-student.dto';
-import { Student } from 'src/shared/models/Student';
 import { PrismaService } from 'src/shared/utils/prisma';
 import { stringToDate, dateToSQL } from 'src/shared/utils/libs/date.lib';
 
@@ -8,12 +7,11 @@ import { stringToDate, dateToSQL } from 'src/shared/utils/libs/date.lib';
 export class CreateStudentsUseCase {
   constructor(private readonly prisma: PrismaService) {}
 
-  async execute(input: CreateStudentDto): Promise<Student> {
+  async execute(input: CreateStudentDto) {
     input.dateOfBirth = dateToSQL(stringToDate(String(input?.dateOfBirth)));
     await this.verifyExistingStudent(input.email);
     input.email = input.email.toLowerCase();
-    const student = await this.prisma.student.create({ data: input });
-    return student as Student;
+    return this.prisma.student.create({ data: input });
   }
 
   private async verifyExistingStudent(email: string) {

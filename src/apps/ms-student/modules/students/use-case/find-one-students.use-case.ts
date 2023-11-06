@@ -6,43 +6,60 @@ import { PrismaService } from 'src/shared/utils/prisma';
 export class FindOneStudentsUseCase {
   constructor(private readonly prisma: PrismaService) {}
 
-  execute(id: string): Promise<Student> {
+  execute(studentId: string): Promise<Student> {
     return this.prisma.student.findUnique({
-      where: { id },
+      where: { id: studentId },
       select: {
         id: true,
         userId: true,
         name: true,
         email: true,
-        gender: true,
         dateOfBirth: true,
+        gender: true,
         heightInMt: true,
         weightInKg: true,
-        isActive: true,
         createdAt: true,
-        trainingPlan: {
+        trainingPlans: {
           where: {
             isActive: true,
           },
           select: {
             id: true,
             name: true,
-            order: true,
-            isActive: true,
+            createdByUserId: true,
             createdAt: true,
-            trainingPlanExercise: {
+            createdByUser: {
+              select: {
+                name: true,
+              },
+            },
+            trainings: {
+              where: { isActive: true },
               select: {
                 id: true,
                 order: true,
-                intervalInSeconds: true,
                 createdAt: true,
-                exercise: {
+                trainingExercises: {
                   select: {
                     id: true,
-                    name: true,
-                    description: true,
-                    isActive: true,
+                    exerciseId: true,
+                    intervalInSeconds: true,
                     createdAt: true,
+                    exercise: {
+                      select: {
+                        id: true,
+                        name: true,
+                        description: true,
+                        image: true,
+                        muscleId: true,
+                        muscle: {
+                          select: {
+                            id: true,
+                            name: true,
+                          },
+                        },
+                      },
+                    },
                   },
                 },
               },
