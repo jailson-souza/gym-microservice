@@ -11,33 +11,37 @@ export class CreateTrainingPlansUseCase {
   constructor(private readonly prisma: PrismaService) {}
 
   async execute(input: TInputCreateTraining) {
-    input;
-    // const { exercises, ...trainingPlan } = input;
-    // await this.verifyExistingTrainingPlan(input.name);
-    // const trainingPlanCreated = await this.prisma.trainingPlan.create({
-    //   data: trainingPlan,
-    // });
-    // const trainingPlanExercises = exercises.map(
-    //   ({ id, intervalInSeconds, order }) => ({
-    //     order,
-    //     intervalInSeconds,
-    //     exerciseId: id,
-    //     treiningPlanId: trainingPlanCreated.id,
-    //   }),
-    // );
-    // await this.prisma.trainingExercise.createMany({
-    //   data: trainingPlanExercises,
-    // });
-    // return trainingPlanCreated as TrainingPlan;
+    await this._verifyExistTrainingPlanActive();
+    const { trainings, ...trainingPlan } = input;
+    const trainingPlanCreated = await this.prisma.trainingPlan.create({
+      data: trainingPlan,
+    });
+
+    for await (const traning of trainings) {
+      const trainingCreated = await this.prisma.training.create({
+        data: {
+          name: traning.name,
+          order: traning.order,
+          trainingPlanId: trainingPlanCreated.id,
+        },
+      });
+      const exercisesMapped = traning.exercises.map((ex) => ({
+        ...ex,
+        treiningId: trainingCreated.id,
+      }));
+      await this.prisma.trainingExercise.createMany({ data: exercisesMapped });
+    }
   }
 
-  private async verifyExistingTrainingPlan(name: string) {
+  private async _verifyExistTrainingPlanActive() {
     const trainingPlan = await this.prisma.trainingPlan.findFirst({
-      where: { name, isActive: true },
-      select: { id: true, name: true },
+      where: { isActive: true },
     });
+
     if (trainingPlan) {
-      throw new ConflictException('training-plan is already exist');
+      throw new ConflictException(
+        'there is already an active training plan for this student',
+      );
     }
   }
 }
