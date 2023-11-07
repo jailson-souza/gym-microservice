@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { CreateStudentDto } from '../dto/create-student.dto';
 import { UpdateStudentDto } from '../dto/update-student.dto';
@@ -37,8 +38,11 @@ export class StudentsController {
 
   @Get()
   @CheckRole(RoleEnum.TEACHER)
-  findAll() {
-    return this.findAllStudentsUseCase.execute();
+  findAll(@Query('limit') limit: string, @Query('page') page: string) {
+    return this.findAllStudentsUseCase.execute({
+      limit: +limit,
+      page: +page,
+    });
   }
 
   @Get(':id')

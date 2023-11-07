@@ -7,6 +7,7 @@ import { CreateExercisesUseCase } from './use-case/create-exercises.use-case';
 import { FindAllExercisesUseCase } from './use-case/find-all-exercises.use-case';
 import { FindOneExercisesUseCase } from './use-case/find-one-exercises.use-case';
 import { InactivateExercisesUseCase } from './use-case/inactivate-exercises.use-case';
+import { Paginator } from 'src/shared/utils/paginator';
 
 @Module({
   controllers: [ExercisesController],
@@ -18,6 +19,7 @@ import { InactivateExercisesUseCase } from './use-case/inactivate-exercises.use-
     UpdateExercisesUseCase,
     InactivateExercisesUseCase,
     ActivateExercisesUseCase,
+    Paginator,
   ],
 })
 export class ExercisesModule {}

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { CreateExerciseDto } from '../dto/create-exercise.dto';
 import { UpdateExerciseDto } from '../dto/update-exercise.dto';
@@ -37,8 +38,8 @@ export class ExercisesController {
 
   @Get()
   @CheckRole()
-  findAll() {
-    return this.findAllExercisesUseCase.execute();
+  findAll(@Query('page') page: string, @Query('limit') limit: string) {
+    return this.findAllExercisesUseCase.execute({ page: +page, limit: +limit });
   }
 
   @Get(':id')
