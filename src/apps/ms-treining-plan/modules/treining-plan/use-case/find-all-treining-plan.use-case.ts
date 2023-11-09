@@ -1,13 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { TrainingPlan } from 'src/shared/models/TrainingPlan';
+import { Paginator } from 'src/shared/utils/paginator';
 import { PrismaService } from 'src/shared/utils/prisma';
+
+type TParams = {
+  page: number;
+  limit: number;
+};
 
 @Injectable()
 export class FindAllTrainingPlansUseCase {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly paginator: Paginator,
+  ) {}
 
-  execute(): Promise<TrainingPlan[]> {
-    return;
-    // return (this.prisma.training - plan.findMany()) as Promise<TrainingPlan[]>;
+  execute({ page = 1, limit = 100 }: TParams) {
+    return this.paginator.execute(this.prisma.trainingPlan, {
+      paginator: {
+        page,
+        limit,
+      },
+    });
   }
 }

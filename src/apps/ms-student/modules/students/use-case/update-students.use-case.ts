@@ -17,7 +17,6 @@ export class UpdateStudentsUseCase {
       'height',
       'weight',
     ]);
-    console.log('data', data);
 
     try {
       if (input.dateOfBirth) {

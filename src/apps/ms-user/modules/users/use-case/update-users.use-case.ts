@@ -20,19 +20,15 @@ export class UpdateUsersUseCase {
       'roles',
     ]) as any;
 
-    try {
-      if (data) {
-        if (data?.password) {
-          data.password = await encryptPassword(input.password);
-        }
-        await this.prisma.user.update({ where: { id }, data });
+    if (data) {
+      if (data?.password) {
+        data.password = await encryptPassword(input.password);
       }
+      await this.prisma.user.update({ where: { id }, data });
+    }
 
-      if (roles?.length > 0) {
-        await this.addRoleToUserUseCase.execute({ userId: id, roles });
-      }
-    } catch (error) {
-      console.log('error', error);
+    if (roles?.length > 0) {
+      await this.addRoleToUserUseCase.execute({ userId: id, roles });
     }
   }
 }

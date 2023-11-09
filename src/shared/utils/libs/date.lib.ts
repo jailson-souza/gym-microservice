@@ -26,3 +26,7 @@ export function dateToSQL(date: string) {
   const millis = DateTime.fromISO(date).toMillis();
   return new Date(millis);
 }
+
+export function getDateNow() {
+  return DateTime.now().toISO();
+}

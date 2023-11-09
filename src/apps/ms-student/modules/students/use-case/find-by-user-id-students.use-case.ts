@@ -37,6 +37,7 @@ export class FindByUserIdStudentsUseCase {
               where: { isActive: true },
               select: {
                 id: true,
+                name: true,
                 order: true,
                 createdAt: true,
                 trainingExercises: {

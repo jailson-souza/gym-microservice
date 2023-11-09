@@ -6,5 +6,6 @@ export class UpdateTrainingPlanDto {
   name?: string;
 
   @IsOptional()
+  @IsNotEmpty()
   objective?: string;
 }

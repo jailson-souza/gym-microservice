@@ -10,9 +10,6 @@ import { IsDateFormat } from 'src/shared/decorators/IsDateFormat.decorator';
 import { GenderEnum } from 'src/shared/models/enums/Gender.enum';
 
 export class CreateStudentDto {
-  @IsOptional()
-  userId?: string;
-
   @IsNotEmpty()
   name: string;
 

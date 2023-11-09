@@ -6,10 +6,9 @@ export class ActivateTrainingPlansUseCase {
   constructor(private readonly prisma: PrismaService) {}
 
   async execute(id: string): Promise<void> {
-    id;
-    // await this.prisma..update({
-    //     where: { id },
-    //     data: { isActive: true },
-    //   });
+    await this.prisma.trainingPlan.update({
+      where: { id },
+      data: { isActive: true },
+    });
   }
 }

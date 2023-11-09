@@ -5,8 +5,9 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
   Req,
+  Query,
+  HttpCode,
 } from '@nestjs/common';
 import { CheckRole } from 'src/shared/decorators/checkRole.decorator';
 import { RoleEnum } from 'src/shared/models/enums/Role.enum';
@@ -41,8 +42,11 @@ export class TrainingPlansController {
 
   @Get()
   @CheckRole(RoleEnum.TEACHER)
-  findAll() {
-    return this.findAllTrainingPlansUseCase.execute();
+  findAll(@Query('page') page, @Query('limit') limit) {
+    return this.findAllTrainingPlansUseCase.execute({
+      page: +page,
+      limit: +limit,
+    });
   }
 
   @Get(':id')
@@ -53,6 +57,7 @@ export class TrainingPlansController {
 
   @Patch(':id')
   @CheckRole(RoleEnum.TEACHER)
+  @HttpCode(204)
   update(
     @Param('id') id: string,
     @Body() updateTrainingPlanDto: UpdateTrainingPlanDto,
@@ -60,14 +65,16 @@ export class TrainingPlansController {
     return this.updateTrainingPlansUseCase.execute(id, updateTrainingPlanDto);
   }
 
-  @Delete(':id')
+  @Patch(':id/inactivate')
   @CheckRole(RoleEnum.TEACHER)
+  @HttpCode(204)
   inactivate(@Param('id') id: string) {
     return this.inactivateTrainingPlansUseCase.execute(id);
   }
 
   @Patch(':id/activate')
   @CheckRole(RoleEnum.TEACHER)
+  @HttpCode(204)
   activate(@Param('id') id: string) {
     return this.activateTrainingPlansUseCase.execute(id);
   }

@@ -4,6 +4,7 @@ import { ExercisesModule } from './modules/exercises/exercises.module';
 import { TrainingPlansModule } from './modules/treining-plan/treining-plan.module';
 import { TrainingPlanHistoryModule } from './modules/treining-plan-history/training-plan-history.module';
 import { GlobalModule } from 'src/shared/utils/tools/global.module';
+import { TrainingModule } from './modules/training/training.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { GlobalModule } from 'src/shared/utils/tools/global.module';
     ExercisesModule,
     TrainingPlansModule,
     TrainingPlanHistoryModule,
+    TrainingModule,
   ],
   providers: [],
 })
