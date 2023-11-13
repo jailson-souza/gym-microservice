@@ -9,6 +9,14 @@ export class FindByEmailUsersUseCase {
   execute(email: string): Promise<User> {
     return this.prisma.user.findUnique({
       where: { email },
+      include: {
+        userRoles: {
+          select: {
+            id: true,
+            role: true,
+          },
+        },
+      },
     }) as any;
   }
 }

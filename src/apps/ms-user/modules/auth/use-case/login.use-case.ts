@@ -34,6 +34,10 @@ export class LoginUseCase {
 
     const token = await this.jwt.sign({ sub: findedUser.id });
     const { exp: expiresIn } = this.jwt.decode(token);
-    return { expiresIn, token };
+    return {
+      expiresIn,
+      token,
+      roles: findedUser?.userRoles?.map((userRole) => userRole.role),
+    };
   }
 }
