@@ -7,8 +7,8 @@ import { IsPublic } from 'src/shared/decorators/isPublic.decorator';
 export class AuthController {
   constructor(private readonly loginUseCase: LoginUseCase) {}
 
-  @IsPublic()
   @Post('login')
+  @IsPublic()
   login(@Body() loginDto: LoginDto) {
     return this.loginUseCase.execute(loginDto);
   }
