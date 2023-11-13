@@ -8,14 +8,14 @@ export class FindOneUsersUseCase {
   execute(userId: string) {
     return this.prisma.user.findUnique({
       where: { id: userId },
+
       select: {
         id: true,
         name: true,
         email: true,
-        password: false,
         isActive: true,
         createdAt: true,
-        userRoles: true,
+        userRoles: { select: { role: true } },
         student: {
           select: {
             id: true,
