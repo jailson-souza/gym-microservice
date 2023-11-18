@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { LoginDto } from '../dto/login.dto';
-import { CredentialDto } from '../dto/credential.dto';
+import { ResponseLoginSuccessDto } from '../dto/reponse-login.dto';
 import { Jwt } from 'src/shared/utils/jwt';
 import { comparePassword } from 'src/shared/utils/libs/encryptor.lib';
 import { FindByEmailUsersUseCase } from '../../users/use-case/find-by-email-users.use-case';
@@ -12,7 +12,7 @@ export class LoginUseCase {
     private readonly jwt: Jwt,
   ) {}
 
-  async execute(login: LoginDto): Promise<CredentialDto> {
+  async execute(login: LoginDto): Promise<ResponseLoginSuccessDto> {
     const findedUser = await this.findByEmailUsersUseCase.execute(
       login.email.toLowerCase(),
     );

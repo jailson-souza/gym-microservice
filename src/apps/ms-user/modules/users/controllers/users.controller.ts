@@ -8,6 +8,7 @@ import {
   Param,
   HttpCode,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UpdateUsersUseCase } from '../use-case/update-users.use-case';
@@ -19,8 +20,8 @@ import { FindAllUsersUseCase } from '../use-case/find-all-users.use-case';
 import { FindOneUsersUseCase } from '../use-case/find-one-users.use-case';
 import { InactivateUsersUseCase } from '../use-case/inactivate-users.use-case';
 import { DeleteRoleFromUserUseCase } from '../use-case/delete-role-from-user.use-case';
-import { IsPublic } from 'src/shared/decorators/isPublic.decorator';
 
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(
@@ -35,7 +36,6 @@ export class UsersController {
 
   @Post()
   @CheckRole(RoleEnum.ADMIN)
-  @IsPublic()
   create(@Body() createUserDto: CreateUserDto) {
     return this.createUsersUseCase.execute(createUserDto);
   }

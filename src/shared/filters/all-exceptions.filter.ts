@@ -22,8 +22,9 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
+    const messages = exception.response.message;
     const responseBody = {
-      messages: exception.response.message,
+      messages: Array.isArray(messages) ? messages : [messages],
     };
 
     response.status(httpStatus).json(responseBody);
