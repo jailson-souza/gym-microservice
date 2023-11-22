@@ -4,6 +4,7 @@ import { PrismaService } from '../../../../../shared/utils/prisma';
 import { encryptPassword } from '../../../../../shared/utils/libs/encryptor.lib';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { AddRoleToUserUseCase } from './add-role-to-user.use-case';
+import { RoleEnum } from 'src/shared/models/enums/Role.enum';
 
 @Injectable()
 export class CreateUsersUseCase {
@@ -23,6 +24,16 @@ export class CreateUsersUseCase {
     const user = await this.prisma.user.create({ data });
     await this.addRoleToUserUseCase.execute({ roles, userId: user.id });
     delete user.password;
+    if (roles.includes(RoleEnum.STUDENT)) {
+      this.prisma.student.create({
+        data: {
+          userId: user.id,
+          email: user.email,
+          name: user.name,
+        },
+      });
+    }
+
     return this.prisma.user.findUnique({
       where: { id: user.id },
       select: {

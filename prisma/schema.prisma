@@ -47,8 +47,8 @@ model Student {
   userId           String?           @unique
   name             String
   email            String            @unique
-  dateOfBirth      DateTime
-  gender           Gender
+  dateOfBirth      DateTime?
+  gender           Gender?
   heightInMt       Float?
   weightInKg       Float?
   isActive         Boolean?          @default(true)

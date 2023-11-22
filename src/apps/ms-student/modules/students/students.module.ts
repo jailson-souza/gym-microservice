@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { PrismaService } from 'src/shared/utils/prisma';
 import { StudentsController } from './controllers/students.controller';
 import { ActivateStudentsUseCase } from './use-case/activate-students.use-case';
-import { CreateStudentsUseCase } from './use-case/create-students.use-case';
 import { FindAllStudentsUseCase } from './use-case/find-all-students.use-case';
 import { UpdateStudentsUseCase } from './use-case/update-students.use-case';
 import { FindByUserIdStudentsUseCase } from './use-case/find-by-user-id-students.use-case';
@@ -18,7 +17,6 @@ import { AddRoleToUserUseCase } from 'src/apps/ms-user/modules/users/use-case/ad
   providers: [
     PrismaService,
     ActivateStudentsUseCase,
-    CreateStudentsUseCase,
     FindByUserIdStudentsUseCase,
     FindByEmailStudentsUseCase,
     FindAllStudentsUseCase,
