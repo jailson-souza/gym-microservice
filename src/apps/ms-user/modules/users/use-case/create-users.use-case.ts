@@ -25,7 +25,7 @@ export class CreateUsersUseCase {
     await this.addRoleToUserUseCase.execute({ roles, userId: user.id });
     delete user.password;
     if (roles.includes(RoleEnum.STUDENT)) {
-      this.prisma.student.create({
+      await this.prisma.student.create({
         data: {
           userId: user.id,
           email: user.email,
