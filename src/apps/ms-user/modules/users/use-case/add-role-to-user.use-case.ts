@@ -12,17 +12,11 @@ export class AddRoleToUserUseCase {
   constructor(private readonly prisma: PrismaService) {}
 
   async execute(input: TInputAddRoleToUser): Promise<void> {
-    const userRole = await this.prisma.userRole.findMany({
-      where: { userId: input.userId },
-      select: { id: true, role: true },
-    });
-
-    const rolesToInsert = input.roles
-      .filter((role) => !userRole?.some((userRole) => userRole.role === role))
-      .map((role) => ({ role, userId: input.userId }));
-
-    if (rolesToInsert?.length > 0) {
-      await this.prisma.userRole.createMany({ data: rolesToInsert });
-    }
+    await this.prisma.userRole.deleteMany({ where: { userId: input.userId } });
+    const rolesToInsert = input.roles.map((role) => ({
+      role,
+      userId: input.userId,
+    }));
+    await this.prisma.userRole.createMany({ data: rolesToInsert });
   }
 }
